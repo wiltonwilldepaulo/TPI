@@ -27,12 +27,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Starter Page</h1>
+                            <h1 class="m-0">Controle de pessoa</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Starter Page</li>
+                                <li class="breadcrumb-item"><a href="painel">Início</a></li>
+                                <li class="breadcrumb-item"><a href="listapessoa">Listagem</a></li>
+                                <li class="breadcrumb-item active">Controle</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -45,28 +46,52 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="container-fluid">
                     <div class="row">
                         <!-- left column -->
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <!-- jquery validation -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Quick Example <small>jQuery Validation</small></h3>
+                                    <div class="card-title">
+                                        <a class="btn btn-warning" href="listapessoa"><i class="fas fa-chevron-left"> </i> Voltar</a>
+                                    </div>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
-                                <form id="quickForm">
+                                <form method="post" id="form" name="form">
                                     <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Email address</label>
-                                            <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <?php include_once "alerta.php"; ?>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Password</label>
-                                            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                        <div class="row">
+                                            <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                                                <label for="cnpj">CPF | CNPJ *</label>
+                                                <input required type="text" name="cnpj" class="form-control" id="cnpj" placeholder="Por favor digite o CNPJ.">
+                                            </div>
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                                                <label for="nome_fantasia">Nome | nome fantasia *</label>
+                                                <input required type="text" name="nome_fantasia" class="form-control" id="nome_fantasia" placeholder="Digite o nome ou nome fantasia.">
+                                            </div>
+                                            <div class="form-group col-lg-5 col-md-6 col-sm-12">
+                                                <label for="razao_social">Sobre nome | razão social *</label>
+                                                <input required type="text" name="razao_social" class="form-control" id="razao_social" placeholder="Digite o sobre nome ou razão social.">
+                                            </div>
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                                                <label for="rg_ie">RG | IE *</label>
+                                                <input required type="text" name="rg_ie" class="form-control" id="rg_ie" placeholder="Digite o RG ou IE.">
+                                            </div>
+                                            <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                                                <label for="data_inicio_atividade">Nascimento | Fundação</label>
+                                                <input type="text" name="data_inicio_atividade" class="form-control" id="data_inicio_atividade" placeholder="Data de nascimento ou fundação.">
+                                            </div>
+                                            <div class="custom-control custom-checkbox col-lg-4 col-md-6 col-sm-12 mt-4">
+                                                <input class="custom-control-input" type="checkbox" id="customCheckbox2" checked>
+                                                <label for="customCheckbox2" class="custom-control-label">É a matriz?</label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- /.card-body -->
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button id="btnsalvar" name="btnsalvar" type="button" class="btn btn-success"><i class="fas fa-save"> </i> Salvar</button>
                                     </div>
                                 </form>
                             </div>
@@ -81,6 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <?php include_once "footer.php"; ?>
     </div>
     <?php include_once "scriptcadastro.php"; ?>
+    <script src="js/pessoa.js"></script>
 </body>
 
 </html>
