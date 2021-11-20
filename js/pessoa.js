@@ -148,7 +148,7 @@ btn.addEventListener("click", (e) => {
         alert("Valido!");
     }
 });
-
+//EVENTO DE SAIDA DO CAMPO CPF OU CNPJ
 cnpj.addEventListener("blur", () => {
     if (cnpj.value.length > 14) {
         //REMOVEMOS OS CARACTES DA MACARA DO CNPJ.
