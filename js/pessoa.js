@@ -1,8 +1,8 @@
-
+//A PRESENTE FUNÇÃO RETORNA UM PROMESSA OU PROMISE
 function find(url, opt) {
     return fetch(url, opt);
 }
-
+//A PRESENTE FUNÇÃO VALIDA O CPF
 function isValidCPF(cpf) {
     if (typeof cpf !== "string") return false
     cpf = cpf.replace(/[\s.-]*/igm, '')
@@ -37,74 +37,60 @@ function isValidCPF(cpf) {
     if (resto != parseInt(cpf.substring(10, 11))) return false
     return true
 }
-
+//A PRESENTE FUNÇÃO VALIDA O CNPJ
 function isValidCNPJ(value) {
     if (!value) return false
     // Aceita receber o valor como string, número ou array com todos os dígitos
     const isString = typeof value === 'string'
     const validTypes = isString || Number.isInteger(value) || Array.isArray(value)
-
     // Elimina valor em formato inválido
     if (!validTypes) return false
-
     // Filtro inicial para entradas do tipo string
     if (isString) {
         // Limita ao máximo de 18 caracteres, para CNPJ formatado
         if (value.length > 18) return false
-
         // Teste Regex para veificar se é uma string apenas dígitos válida
         const digitsOnly = /^\d{14}$/.test(value)
         // Teste Regex para verificar se é uma string formatada válida
         const validFormat = /^\d{2}.\d{3}.\d{3}\/\d{4}-\d{2}$/.test(value)
-
         // Se o formato é válido, usa um truque para seguir o fluxo da validação
         if (digitsOnly || validFormat) true
         // Se não, retorna inválido
         else return false
     }
-
     // Guarda um array com todos os dígitos do valor
     const match = value.toString().match(/\d/g)
     const numbers = Array.isArray(match) ? match.map(Number) : []
-
     // Valida a quantidade de dígitos
     if (numbers.length !== 14) return false
-
     // Elimina inválidos com todos os dígitos iguais
     const items = [...new Set(numbers)]
     if (items.length === 1) return false
-
     // Cálculo validador
     const calc = (x) => {
         const slice = numbers.slice(0, x)
         let factor = x - 7
         let sum = 0
-
         for (let i = x; i >= 1; i--) {
             const n = slice[x - i]
             sum += n * factor--
             if (factor < 2) factor = 9
         }
-
         const result = 11 - (sum % 11)
-
         return result > 9 ? 0 : result
     }
-
     // Separa os 2 últimos dígitos de verificadores
     const digits = numbers.slice(12)
-
     // Valida 1o. dígito verificador
     const digit0 = calc(12)
     if (digit0 !== digits[0]) return false
-
     // Valida 2o. dígito verificador
     const digit1 = calc(13)
     return digit1 === digits[1]
 }
-
+//CONSULTAMOS OS DADOS DA EMPRESA ATRAVÉZ DO CNPJ
 async function getCnpj(cnpj) {
-    // let acao = document.getElementById("edtacao");
+    //AQUI TEMOS A CONFIGURAÇÃO DO METODOS DE REQUISIÇÃO
     const options = {
         method: "GET",
         mode: "cors",
@@ -112,10 +98,22 @@ async function getCnpj(cnpj) {
     }
     const response = await find(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`, options);
     let json = await response.json();
-    console.log(json);
-
+    showData(json);
 }
-
+//A PRESENTE FUNÇÃO PREENCHE OS CAMPOS DO FORM
+const showData = (result) => {
+    for (const campo in result) {
+        if (document.querySelector("#" + campo)) {
+            //VERIFICAMOS SE O CAMPO SE TRATA DE UMA DATA
+            if (campo == "data_inicio_atividade") {
+                //CONVERTEMOS A DATA PARA O FORMATO BRASILEIRO
+                document.querySelector("#" + campo).value = result[campo].split('-').reverse().join('/');
+            } else {
+                document.querySelector("#" + campo).value = result[campo];
+            }
+        }
+    }
+}
 //CONFIGURAÇÕES DOS PARAMENTRO DE VALIDAÇÃO DO FORMULÁRIO
 $('#form').validate({
     rules: {
