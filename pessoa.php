@@ -1,8 +1,7 @@
+<?php
+include_once "./config.php";
+?>
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 
 <head>
@@ -14,12 +13,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
-
         <?php include_once "menu_topo.php"; ?>
         <?php include_once "menu_lateral.php"; ?>
-
-
-
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -107,6 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <?php include_once "scriptcadastro.php"; ?>
     <script src="js/pessoa.js"></script>
+    <script src="js/alerta.js"></script>
 </body>
 
 </html>
